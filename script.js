@@ -1,18 +1,14 @@
 let likeCount = 856;
 let followerCount = 845;
-let likeLimit = 420000; // Like count limit
-let followerLimit = 360000; // Follower count limit
+let likeLimit = 420000; // like limit
+let followerLimit = 360000; // follower limit
 
-// Total duration in milliseconds
-let duration = 60000; // 1 minute
+// total durations in milliseconds
+let duration = 15000; // 15 seconds
 
-// Calculate total increments needed
-let likeIncrements = likeLimit - likeCount;
-let followerIncrements = followerLimit - followerCount;
-let totalIncrements = Math.max(likeIncrements, followerIncrements);
-
-// Calculate interval to reach the limits within 1 minute
-let interval = duration / totalIncrements;
+// caculated
+let likeIncrement = (likeLimit - likeCount) / duration;
+let followerIncrement = (followerLimit - followerCount) / duration;
 
 function formatNumber(number) {
     if (number >= 1000 && number < 10000) {
@@ -28,16 +24,18 @@ function formatNumber(number) {
 
 function increaseCounts() {
     if (likeCount < likeLimit && followerCount < followerLimit) {
-        likeCount++;
-        followerCount++;
-        let formattedLikeCount = formatNumber(likeCount);
-        let formattedFollowerCount = formatNumber(followerCount);
-        document.getElementById("likeAndFollow").textContent = formattedLikeCount + " การกดถูกใจ • ผู้ติดตาม " + formattedFollowerCount + " คน";
+        // Increment like and follower counts
+        likeCount += likeIncrement;
+        followerCount += followerIncrement;
+        let formattedLikeCount = formatNumber(Math.floor(likeCount)); // Round down to integer
+        let formattedFollowerCount = formatNumber(Math.floor(followerCount)); // Round down to integer
+        document.getElementById("likeAndFollow").textContent = "การกดถูกใจ " + formattedLikeCount + " • ผู้ติดตาม " + formattedFollowerCount + " คน";
     } else {
-        alert("Maximum limits reached within 1 minute!");
         clearInterval(updateInterval); // Stop the interval if limits are reached
     }
 }
 
 // Call the function to start incrementing
-let updateInterval = setInterval(increaseCounts, interval);
+let updateInterval = setInterval(increaseCounts, 1); // Update every millisecond
+
+// Code by Phanu, CAMT CMU
