@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+.text {
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+}
+
